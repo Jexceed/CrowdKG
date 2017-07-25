@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="/javascripts/jquery.js"></script>
+    <!--script src="/javascripts/jquery-1.11.3.min.js"></script-->
+</head>
+<body>
+<h2><%= title %></h2>
+
+<hr/>
+<hr/>
+
+<div class="row">
+    <div class="col-xs-12">
+        <textarea class="form-control" id="textarea_1" rows="12" placeholder="请输入模型操作..."></textarea>
+        <button id="submit">submit</button>
+
+        <hr/>
+        <textarea class="form-control" rows="12">
+            const u1.op1 = [
+                ["t1", "ADD", "ENT", "FRONTID_1","人物",[["名字","宝二爷"],["性别","男"]]],
+                ["t2", "ADD", "EPR", "FRONTID_1",[["生日","12月29日"]]],
+
+                ["t3", "ADD", "ENT", "FRONTID_2","人物",[["名字", "林黛玉"]]],
+                ["t4", "ADD", "RLT", "FRONTID_RL","FRONTID_1", "FRONTID_2","知己",1]
+            ]
+
+            const u2.op2 = [
+                ["t5", "REF", "ENT", "ENDID_1",[["名字", "贾宝玉"]]],
+                ["t6", "ADD", "ENT", "ENDID_2","人物",[["名字", "林黛玉"]]],
+                ["t7", "ADD", "RLT", "FRONTID_RL","ENDID_2", "ENDID_1","知己",1]
+            ]
+
+            const u1.op3 = [
+                ["t8", "RMV", "RLT", "FRONTID_RL","136","129","知己", 1]
+            ]
+
+        </textarea>
+
+    </div>
+    <!--div class="col-xs-6">
+        <textarea class="form-control" id="textarea_2" disabled="disabled" rows="6" placeholder="等待后台数据返回..."></textarea>
+    </div-->
+</div>
+
+</body>
+
+<script scr="jquery-1.11.3.min.js"></script>
+<script>
+    $("#submit").live("click",function(){
+        var value = $("#textarea_1").val();
+        var data = JSON.parse(value);
+
+        $.ajax({
+            url: '/test',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: function (msg) {
+                console.log(msg)
+                // TODO ?
+            },
+            error: function () {
+                // TODO ?
+            }
+        })
+    })
+</script>
+
+</html>
+
+
+
